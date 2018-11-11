@@ -8,6 +8,7 @@
     "react-dom": "^16.6.1",
     "react-scripts": "2.1.1"
   },
+  "homepage": "https://topus009.github.io/csssr",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
