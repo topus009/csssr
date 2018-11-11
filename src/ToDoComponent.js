@@ -1,38 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
   class ToDoComponent extends React.Component {
-    state = {
-      todoText: ''
-    }
-
+      constructor(props) {
+          super(props);
+          this.state = {
+            todoText: ''
+          }
+      }
     render() {
+        const {
+            title,
+            todos,
+        } = this.props;
+        const {todoText} = this.state;
       return (
         <div>
-          <label>{this.props.title || 'Без названия'}</label>
+          <label>{title || 'Без названия'}</label>
           <div>
             <input
-              value={this.state.todoText}
+              value={todoText}
               placeholder="Название задачи"
               onChange={this.updateText}
             />
             <button onClick={this.addTodo}>Добавить</button>
             <ul>
-              {this.props.todos.map((todo, idx) => <li>{todo}</li>)}
+              {
+                  todos.map((todo, idx) =>
+                    <li key={`key_${idx}`}>{todo}</li>
+                    )
+              }
             </ul>
           </div>
         </div>
       )
     }
 
-    updateText(e) {
-      const { value } = e.target
-      this.state.todoText = value;
+    updateText = (e) => {
+      const {value: todoText} = e.target;
+      this.setState({todoText});
     }
 
-    addTodo() {
-      this.props.addTodo(this.state.todoText)
-      this.state.todoText = '';
+    addTodo = () => {
+      this.props.addTodo(this.state.todoText);
+      this.setState({todoText: ''});
     }
   }
+
+ToDoComponent.propTypes = {
+    title: PropTypes.string.isRequired,
+    todos: PropTypes.array.isRequired,
+    addTodo: PropTypes.func.isRequired,
+};
 
 export default ToDoComponent;
